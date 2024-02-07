@@ -1,83 +1,71 @@
-# Introduction
-
-The facets project contains two visualizations for understanding and analyzing machine learning datasets: Facets Overview and Facets Dive.
-
-The visualizations are implemented as [Polymer](https://www.polymer-project.org) web components, backed by [Typescript](https://www.typescriptlang.org) code and can be easily embedded into Jupyter notebooks or webpages.
-
-Live demos of the visualizations can be found on the [Facets project description page](https://pair-code.github.io/facets/).
-
-## Facets Overview
-
-![Overview visualization of UCI census data](/img/overview-census.png "Overview visualization of UCI census data -  Lichman, M. (2013). UCI Machine Learning Repository [http://archive.ics.uci.edu/ml/datasets/Census+Income]. Irvine, CA: University of California, School of Information and Computer Science")
-
-Overview gives a high-level view of one or more data sets. It produces a visual feature-by-feature statistical analysis, and can also be used to compare statistics across two or more data sets. The tool can process both numeric and string features, including multiple instances of a number or string per feature.
-
-Overview can help uncover issues with datasets, including the following:
-
-* Unexpected feature values
-* Missing feature values for a large number of examples
-* Training/serving skew
-* Training/test/validation set skew
-
-Key aspects of the visualization are outlier detection and distribution comparison across multiple datasets.
-Interesting values (such as a high proportion of missing data, or very different distributions of a feature across multiple datasets) are highlighted in red.
-Features can be sorted by values of interest such as the number of missing values or the skew between the different datasets.
-
-The python code to generate the statistics for visualization can be installed through `pip install facets-overview`.
-As of version 1.1.0, the `facets-overview` package requires a version of `protobuf` at version 3.20.0 or later.
-
-Details about Overview usage can be found in its [README](./facets_overview/README.md).
-
-## Facets Dive
-
-![Dive visualization of UCI census data](/img/dive-census.png "Dive visualization of UCI census data -  Lichman, M. (2013). UCI Machine Learning Repository [http://archive.ics.uci.edu/ml/datasets/Census+Income]. Irvine, CA: University of California, School of Information and Computer Science")
-
-Dive is a tool for interactively exploring up to tens of thousands of multidimensional data points, allowing users to seamlessly switch between a high-level overview and low-level details.
-Each example is a represented as single item in the visualization and the points can be positioned by faceting/bucketing in multiple dimensions by their feature values. Combining smooth animation and zooming with faceting and filtering, Dive makes it easy to spot patterns and outliers in complex data sets.
-
-Details about Dive usage can be found in its [README](./facets_dive/README.md).
-
-# Setup
-
-## Usage in Google Colabratory/Jupyter Notebooks
-
-Using Facets in [Google Colabratory](https://colab.research.google.com) and [Jupyter](http://jupyter.org) notebooks can be seen
-[in this notebook](https://colab.research.google.com/github/PAIR-code/facets/blob/master/colab_facets.ipynb). These notebooks work without the need to first download/install this repository.
-
-Both Facets visualizations make use of HTML imports. So in order to use them, you must first load the appropriate polyfill, through `<script src="https://cdnjs.cloudflare.com/ajax/libs/webcomponentsjs/1.3.3/webcomponents-lite.js"></script>`, as shown in the demo notebooks in this repo.
-
-Note that for using Facets Overview in a Jupyter notebook, there are two considerations:
-1. In the notebook, you will need to change the path that the Facets Overview python code is loaded from to the correct path given where your notebook kernel is run from.
-2. You must also have the Protocol Buffers python runtime library installed: https://github.com/google/protobuf/tree/master/python. If you used pip or anaconda to install Jupyter, you can use the same tool to install the runtime library.
-
-When visualizing a large amount of data in Dive in a Juypter notebook, as is done in the [Dive demo Jupyter notebook](./facets_dive/Dive_demo.ipynb), you will need to start the notebook server with an increased IOPub data rate.
-This can be done with the command ```jupyter notebook --NotebookApp.iopub_data_rate_limit=10000000```.
-
-## Code Installation
-```
-git clone https://github.com/PAIR-code/facets
+<div class="Box-sc-g0xbh4-0 bJMeLZ js-snippet-clipboard-copy-unpositioned" data-hpc="true"><article class="markdown-body entry-content container-lg" itemprop="text"><h1 tabindex="-1" dir="auto"><a id="user-content-introduction" class="anchor" aria-hidden="true" tabindex="-1" href="#introduction"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">介绍</font></font></h1>
+<p dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Facets 项目包含两个用于理解和分析机器学习数据集的可视化：Facets Overview 和 Facets Dive。</font></font></p>
+<p dir="auto"><font style="vertical-align: inherit;"></font><a href="https://www.polymer-project.org" rel="nofollow"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">可视化效果作为Polymer</font></font></a><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"> Web 组件实现，由</font></font><a href="https://www.typescriptlang.org" rel="nofollow"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Typescript</font></font></a><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">代码支持</font><font style="vertical-align: inherit;">，可以轻松嵌入到 Jupyter 笔记本或网页中。</font></font></p>
+<p dir="auto"><font style="vertical-align: inherit;"></font><a href="https://pair-code.github.io/facets/" rel="nofollow"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">可视化的实时演示可以在Facets 项目描述页面</font></font></a><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">上找到</font><font style="vertical-align: inherit;">。</font></font></p>
+<h2 tabindex="-1" dir="auto"><a id="user-content-facets-overview" class="anchor" aria-hidden="true" tabindex="-1" href="#facets-overview"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">方面概述</font></font></h2>
+<p dir="auto"><a target="_blank" rel="noopener noreferrer" href="/PAIR-code/facets/blob/master/img/overview-census.png"><img src="/PAIR-code/facets/raw/master/img/overview-census.png" alt="UCI 人口普查数据概览可视化" title="UCI 人口普查数据的可视化概览 - Lichman, M. (2013)。 UCI 机器学习存储库 [http://archive.ics.uci.edu/ml/datasets/Census+Income]。加利福尼亚州欧文：加利福尼亚大学信息与计算机科学学院" style="max-width: 100%;"></a></p>
+<p dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">概述提供一个或多个数据集的高级视图。它可以生成逐个特征的可视化统计分析，还可以用于比较两个或多个数据集的统计数据。该工具可以处理数字和字符串特征，包括每个特征的数字或字符串的多个实例。</font></font></p>
+<p dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">概述可以帮助发现数据集的问题，包括以下内容：</font></font></p>
+<ul dir="auto">
+<li><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">意外的特征值</font></font></li>
+<li><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">大量示例缺少特征值</font></font></li>
+<li><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">训练/服务偏差</font></font></li>
+<li><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">训练/测试/验证集偏差</font></font></li>
+</ul>
+<p dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">可视化的关键方面是跨多个数据集的异常值检测和分布比较。有趣的值（例如缺失数据的比例较高，或者某个特征在多个数据集中的分布非常不同）以红色突出显示。可以按感兴趣的值对特征进行排序，例如缺失值的数量或不同数据集之间的偏差。</font></font></p>
+<p dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">生成可视化统计数据的 python 代码可以通过安装</font></font><code>pip install facets-overview</code><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">。从版本 1.1.0 开始，该</font></font><code>facets-overview</code><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">包需要</font></font><code>protobuf</code><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">版本 3.20.0 或更高版本。</font></font></p>
+<p dir="auto"><font style="vertical-align: inherit;"></font><a href="/PAIR-code/facets/blob/master/facets_overview/README.md"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">有关概述使用的详细信息可以在其README</font></font></a><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">中找到</font><font style="vertical-align: inherit;">。</font></font></p>
+<h2 tabindex="-1" dir="auto"><a id="user-content-facets-dive" class="anchor" aria-hidden="true" tabindex="-1" href="#facets-dive"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">刻面潜水</font></font></h2>
+<p dir="auto"><a target="_blank" rel="noopener noreferrer" href="/PAIR-code/facets/blob/master/img/dive-census.png"><img src="/PAIR-code/facets/raw/master/img/dive-census.png" alt="UCI 人口普查数据的潜水可视化" title="UCI 人口普查数据的潜水可视化 - Lichman, M. (2013)。 UCI 机器学习存储库 [http://archive.ics.uci.edu/ml/datasets/Census+Income]。加利福尼亚州欧文：加利福尼亚大学信息与计算机科学学院" style="max-width: 100%;"></a></p>
+<p dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Dive 是一款用于交互式探索多达数万个多维数据点的工具，允许用户在高级概述和低级细节之间无缝切换。每个示例在可视化中表示为单个项目，并且可以通过其特征值在多个维度中分面/分桶来定位点。 Dive 将流畅的动画和缩放与分面和过滤相结合，可以轻松发现复杂数据集中的模式和异常值。</font></font></p>
+<p dir="auto"><font style="vertical-align: inherit;"></font><a href="/PAIR-code/facets/blob/master/facets_dive/README.md"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">有关 Dive 使用的详细信息可以在其README</font></font></a><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">中找到</font><font style="vertical-align: inherit;">。</font></font></p>
+<h1 tabindex="-1" dir="auto"><a id="user-content-setup" class="anchor" aria-hidden="true" tabindex="-1" href="#setup"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">设置</font></font></h1>
+<h2 tabindex="-1" dir="auto"><a id="user-content-usage-in-google-colabratoryjupyter-notebooks" class="anchor" aria-hidden="true" tabindex="-1" href="#usage-in-google-colabratoryjupyter-notebooks"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">在 Google Colabatory/Jupyter 笔记本中的使用</font></font></h2>
+<p dir="auto"><font style="vertical-align: inherit;"></font><a href="https://colab.research.google.com" rel="nofollow"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">在Google Colabatory</font></font></a><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">和</font></font><a href="http://jupyter.org" rel="nofollow"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Jupyter</font></font></a><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">笔记本中使用Facets可以</font></font><a href="https://colab.research.google.com/github/PAIR-code/facets/blob/master/colab_facets.ipynb" rel="nofollow"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">在这个笔记本中</font></font></a><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">看到
+</font><font style="vertical-align: inherit;">。这些笔记本无需先下载/安装此存储库即可工作。</font></font></p>
+<p dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">两个 Facets 可视化都使用 HTML 导入。因此，为了使用它们，您必须首先通过 加载适当的 polyfill，</font></font><code>&lt;script src="https://cdnjs.cloudflare.com/ajax/libs/webcomponentsjs/1.3.3/webcomponents-lite.js"&gt;&lt;/script&gt;</code><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">如本存储库中的演示笔记本所示。</font></font></p>
+<p dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">请注意，在 Jupyter Notebook 中使用 Facets Overview 时，有两个注意事项：</font></font></p>
+<ol dir="auto">
+<li><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">在笔记本中，您需要将加载 Facets Overview python 代码的路径更改为给定笔记本内核运行位置的正确路径。</font></font></li>
+<li><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">您还必须安装 Protocol Buffers python 运行时库： https: </font></font><a href="https://github.com/google/protobuf/tree/master/python"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">//github.com/google/protobuf/tree/master/python</font></font></a><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">。如果您使用 pip 或 anaconda 安装 Jupyter，则可以使用相同的工具来安装运行时库。</font></font></li>
+</ol>
+<p dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">当在 Juypter 笔记本中可视化 Dive 中的大量数据时（如</font></font><a href="/PAIR-code/facets/blob/master/facets_dive/Dive_demo.ipynb"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Dive 演示 Jupyter 笔记本</font></font></a><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">中所做的那样），您将需要以更高的 IOPub 数据速率启动笔记本服务器。这可以通过命令来完成</font></font><code>jupyter notebook --NotebookApp.iopub_data_rate_limit=10000000</code><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">。</font></font></p>
+<h2 tabindex="-1" dir="auto"><a id="user-content-code-installation" class="anchor" aria-hidden="true" tabindex="-1" href="#code-installation"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">代码安装</font></font></h2>
+<div class="snippet-clipboard-content notranslate position-relative overflow-auto"><pre class="notranslate"><code>git clone https://github.com/PAIR-code/facets
 cd facets
-```
-
-## Building the Visualizations
-
-If you make code changes to the visualization and would like to rebuild them, follow these directions:
-
-1. Install bazel: https://bazel.build/
-2. Build the visualizations: ```bazel build facets:facets_jupyter``` (run from the facets top-level directory)
-
-## Using the rebuilt Visualizations in a Jupyter notebook
-
-If you want to use the visualizations you built locally in a Jupyter notebook, follow these directions:
-
-1. Move the resulting vulcanized html file from the build step into the facets-dist directory: ```cp -f bazel-bin/facets/facets-jupyter.html facets-dist/```
-2. Install the visualizations into Jupyter as an nbextension.
-  * If jupyter was installed with pip, you can use ```jupyter nbextension install facets-dist/ ``` if jupyter was installed system-wide or ```jupyter nbextension install facets-dist/ --user``` if installed per-user (run from the facets top-level directory). You do not need to run any follow-up ```jupyter nbextension enable``` command for this extension.
-  * Alternatively, you can manually install the nbextension by finding your jupyter installation's ```share/jupyter/nbextensions``` folder and copying the facets-dist directory into it.
-3. In the notebook cell's HTML link tag that loads the built facets html, load from ```/nbextensions/facets-dist/facets-jupyter.html```, which is the locally installed facets distribution. from the previous step.
-
-## Known Issues
-
-* The Facets visualizations currently work only in Chrome - [Issue 9](../../issues/9).
-
-**Disclaimer: This is not an official Google product**
+</code></pre><div class="zeroclipboard-container">
+    <clipboard-copy aria-label="Copy" class="ClipboardButton btn btn-invisible js-clipboard-copy m-2 p-0 tooltipped-no-delay d-flex flex-justify-center flex-items-center" data-copy-feedback="Copied!" data-tooltip-direction="w" value="git clone https://github.com/PAIR-code/facets
+cd facets" tabindex="0" role="button">
+      <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-copy js-clipboard-copy-icon">
+    <path d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 0 1 0 1.5h-1.5a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-1.5a.75.75 0 0 1 1.5 0v1.5A1.75 1.75 0 0 1 9.25 16h-7.5A1.75 1.75 0 0 1 0 14.25Z"></path><path d="M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0 1 14.25 11h-7.5A1.75 1.75 0 0 1 5 9.25Zm1.75-.25a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-7.5a.25.25 0 0 0-.25-.25Z"></path>
+</svg>
+      <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-check js-clipboard-check-icon color-fg-success d-none">
+    <path d="M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0Z"></path>
+</svg>
+    </clipboard-copy>
+  </div></div>
+<h2 tabindex="-1" dir="auto"><a id="user-content-building-the-visualizations" class="anchor" aria-hidden="true" tabindex="-1" href="#building-the-visualizations"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">构建可视化</font></font></h2>
+<p dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">如果您对可视化进行代码更改并想要重建它们，请按照以下说明操作：</font></font></p>
+<ol dir="auto">
+<li><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">安装bazel：</font></font><a href="https://bazel.build/" rel="nofollow"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">https://bazel.build/</font></font></a></li>
+<li><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">构建可视化：（</font></font><code>bazel build facets:facets_jupyter</code><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">从facets顶级目录运行）</font></font></li>
+</ol>
+<h2 tabindex="-1" dir="auto"><a id="user-content-using-the-rebuilt-visualizations-in-a-jupyter-notebook" class="anchor" aria-hidden="true" tabindex="-1" href="#using-the-rebuilt-visualizations-in-a-jupyter-notebook"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">在 Jupyter 笔记本中使用重建的可视化</font></font></h2>
+<p dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">如果您想使用在 Jupyter Notebook 中本地构建的可视化效果，请按照以下说明操作：</font></font></p>
+<ol dir="auto">
+<li><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">将生成的硫化 html 文件从构建步骤移动到facets-dist 目录中：</font></font><code>cp -f bazel-bin/facets/facets-jupyter.html facets-dist/</code></li>
+<li><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">将可视化作为 nbextension 安装到 Jupyter 中。</font></font></li>
+</ol>
+<ul dir="auto">
+<li><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">如果 jupyter 是通过 pip 安装的，则您可以使用</font></font><code>jupyter nbextension install facets-dist/ </code><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">jupyter 是在系统范围内安装的还是</font></font><code>jupyter nbextension install facets-dist/ --user</code><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">按用户安装的（从 Facet 顶级目录运行）。您不需要</font></font><code>jupyter nbextension enable</code><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">为此扩展运行任何后续命令。</font></font></li>
+<li><font style="vertical-align: inherit;"></font><code>share/jupyter/nbextensions</code><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">或者，您可以通过找到 jupyter 安装文件夹并将facets-dist 目录复制到其中来</font><font style="vertical-align: inherit;">手动安装 nbextension 。</font></font></li>
+</ul>
+<ol start="3" dir="auto">
+<li><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">在笔记本单元的 HTML 链接标签中，加载构建的 Facets html，加载 from </font></font><code>/nbextensions/facets-dist/facets-jupyter.html</code><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">，这是本地安装的 Facets 发行版。从上一步开始。</font></font></li>
+</ol>
+<h2 tabindex="-1" dir="auto"><a id="user-content-known-issues" class="anchor" aria-hidden="true" tabindex="-1" href="#known-issues"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">已知的问题</font></font></h2>
+<ul dir="auto">
+<li><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Facets 可视化目前仅适用于 Chrome - </font></font><a href="/PAIR-code/facets/issues/9"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Issue 9</font></font></a><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">。</font></font></li>
+</ul>
+<p dir="auto"><strong><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">免责声明：这不是 Google 官方产品</font></font></strong></p>
+</article></div>
